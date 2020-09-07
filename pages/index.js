@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 
+import JokesList from "../components/JokesList";
 import {
     fetchJokesRequested,
     filterJokes as filterJokesAction,
@@ -62,65 +63,53 @@ export default function Home() {
     };
 
     return (
-        <div className={css.container}>
+        <>
             <Head>
                 <title>Create Next App</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className={css.AppContainer}>
-                <div className={css.appWrapper}>
-                    <header>
-                        <h1 className={css.AppHeading}>
-                            <span role="img" aria-label="face emoji">
-                                😄
-                            </span>
-                            Joke app
-                        </h1>
-                    </header>
 
-                    <section className={css.JokesContainer}>
-                        <h2 className={css.JokesHeading}>
-                            Here are our best jokes, but it isn't certain...
-                        </h2>
+            <section className={css.JokesContainer}>
+                <h2 className={css.JokesHeading}>
+                    Here are our best jokes, but it isn't certain...
+                </h2>
 
-                        <Form style={{ width: "6rem" }}>
-                            <Form.Group controlId="exampleForm.SelectCustom">
-                                <Form.Label style={{ width: "8rem" }}>
-                                    choose category
-                                </Form.Label>
-                                <Form.Control
-                                    as="select"
-                                    custom
-                                    onChange={handleChangeJokesFilter}
-                                    value={jokesFilter}
-                                >
-                                    <option>All</option>
-                                    <option>Nerdy</option>
-                                    <option>Explicit</option>
-                                </Form.Control>
-                            </Form.Group>
-                        </Form>
+                <Form style={{ width: "6rem" }}>
+                    <Form.Group controlId="exampleForm.SelectCustom">
+                        <Form.Label style={{ width: "8rem" }}>
+                            choose category
+                        </Form.Label>
+                        <Form.Control
+                            as="select"
+                            custom
+                            onChange={handleChangeJokesFilter}
+                            value={jokesFilter}
+                        >
+                            <option>All</option>
+                            <option>Nerdy</option>
+                            <option>Explicit</option>
+                        </Form.Control>
+                    </Form.Group>
+                </Form>
 
-                        {/* <JokesList allJokes={filterJokes(allJokes, jokesFilter)} /> */}
+                <JokesList allJokes={filterJokes(allJokes, jokesFilter)} />
 
-                        <form onSubmit={handleSubmitFetch} className={css.form}>
-                            <Form.Control
-                                type="number"
-                                value={jokesAmmountToFetch}
-                                onChange={handleChangeJokesAmmountToFetch}
-                                required
-                                min="1"
-                                max="20"
-                                placeholder="1-20"
-                                style={{ width: "5rem" }}
-                            />
-                            <Button variant="primary" type="submit">
-                                Get more
-                            </Button>
-                        </form>
-                    </section>
-                </div>
-            </div>
-        </div>
+                <form onSubmit={handleSubmitFetch} className={css.form}>
+                    <Form.Control
+                        type="number"
+                        value={jokesAmmountToFetch}
+                        onChange={handleChangeJokesAmmountToFetch}
+                        required
+                        min="1"
+                        max="20"
+                        placeholder="1-20"
+                        style={{ width: "5rem" }}
+                    />
+                    <Button variant="primary" type="submit">
+                        Get more
+                    </Button>
+                </form>
+            </section>
+        </>
     );
 }
